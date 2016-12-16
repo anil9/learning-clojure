@@ -26,8 +26,22 @@
 
 ;; flatten
 (defn flattens [x]
-  (seq x))
+  (if (sequential? x)
+    (mapcat flattens x)
+    (list x)))
 
+(deftest test-flattens
+  (is(=[1 2 3] (flattens [1 [2 3]])))
+  (is(=[1 2 3 4 4] (flattens [1 '(2 3 4 [4])]))))  
+
+;; takes a string and returns a new string containing only the capital letters
+
+(defn get-the-caps [x]
+  (filter #(not= (str %) (clojure.string/lower-case %)) x))
+  
+
+(deftest test-get-the-caps
+  (is(="YOLO" (get-the-caps "You Only Live Once"))))
 
 (run-all-tests)
 
