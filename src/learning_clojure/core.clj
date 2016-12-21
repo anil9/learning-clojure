@@ -83,6 +83,14 @@
   (is (="hohejoj" (rovarsprak "hej")))
   (is (="hohejoj popå dodigog" (rovarsprak "hej på dig"))))
 
+(defn karpsravor [x])
+
+(deftest test-karpsravor
+  (is (= (karpsravor "hohejoj") "hej"))
+  (is (= (karpsravor "hohejoj popå dodigog") "hej på dig"))
+  (is (= (karpsravor (rovarsprak "hej")) "hej")))
+
+
 (run-all-tests)
 
 
