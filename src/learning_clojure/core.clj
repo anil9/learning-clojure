@@ -1,6 +1,5 @@
-(ns learning-clojure.core)
+(ns learning-clojure.core (:use clojure.test))
 
-(ns clojure.test.example  (:use clojure.test))
 
 ;; fibonacci
 (defn fib [x]
@@ -100,7 +99,7 @@
   (is (= (karpsravor (rovarsprak "hej")) "hej")))
 
 
-(run-all-tests)
+(run-tests)
 
 
 

@@ -1,5 +1,5 @@
-(ns learning-clojure.amicable-numbers)
-(ns clojure.test.example  (:use clojure.test))
+(ns learning-clojure.amicable-numbers (:use clojure.test))
+
 
 ;; finds all divisors of x
 (defn proper-divisors [x]
@@ -59,4 +59,4 @@
 (println (reduce + (map last
                      (map filter-high-amicable
                           (rec-build-map 1 {} (- 10000 1))))))
-(run-all-tests)
+(run-tests)
