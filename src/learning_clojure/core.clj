@@ -74,7 +74,7 @@
   (is (= '(1 1 1 2 2 2 3 3 3) (my-replicate '(1 2 3) 3))))
 
 
-
+;; Implements the range function
 (defn my-range [from exclusive-to]
   (loop [range-list [] counter from]
     (if (< counter exclusive-to)
@@ -84,6 +84,8 @@
 (deftest test-range
   (is (= '(1 2 3) (my-range 1 4)))
   (is (= '(7 8 9 10)) (my-range 7 11)))
+
+
 
 (run-tests)
 
