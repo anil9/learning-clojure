@@ -85,7 +85,13 @@
   (is (= '(1 2 3) (my-range 1 4)))
   (is (= '(7 8 9 10)) (my-range 7 11)))
 
+;; returns the max value from args
+(defn maximum [& args]
+  (reduce #(if (> %1 %2) %1 %2) args))
 
+(deftest test-maximum
+  (is (= 22 (maximum 1 3 5 7 11 13 17 21 22)))
+  (is (= 1 (maximum -1 0 0 0 0 0 1 0 0 0 0 -2))))
 
 (run-tests)
 
