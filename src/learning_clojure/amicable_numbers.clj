@@ -61,6 +61,7 @@
 (println (reduce + (map last
                         (map filter-high-amicable
                              (rec-build-map 1 {} (- 10000 1))))))
+
 (->> (rec-build-map 1 {} (- 10000 1))
      (map filter-high-amicable)
      (map last)
