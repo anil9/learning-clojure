@@ -1,6 +1,5 @@
 (ns learning-clojure.core (:use clojure.test))
 
-
 ;; fibonacci
 (defn fib [x]
   (map first (take x (iterate (fn [[a b]] [b (+' a b)]) [1 1]))))
@@ -60,7 +59,13 @@
   (is (="YOLO" (compress "YYYOOOLLLLOOOOOOOOOO")))
   (is (="test" (compress "test"))))
 
+;; Duplicate a sequence
+(defn duplicate [x]
+  (mapcat #(repeat 2 %) x))
 
+(deftest test-duplicate
+  (is (= '(1 1 2 2 3 3) (duplicate '(1 2 3))))
+  (is (= '([1 2] [1 2] [3 4] [3 4]) (duplicate '([1 2] [3 4])))))
 
 
 (run-tests)
