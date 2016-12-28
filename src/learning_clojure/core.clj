@@ -134,6 +134,16 @@
   (is (= 120 (fact 5)))
   (is (= 40320 (fact 8))))
 
+;; reverse interleave (1 2 3 4) 2 = ((1 3) (2 4))
+(defn my-reverse-interleave [coll n]
+  (loop [counter 0 current-coll coll result []]
+    (if (= counter n) result
+                      (recur (inc counter) (rest current-coll) (conj result (take-nth n current-coll))))))
+
+(deftest test-reverse-interleave
+  (is (= '((1 3) (2 4)) (my-reverse-interleave '(1 2 3 4) 2)))
+  (is (= '((0 5) (1 6) (2 7) (3 8) (4 9)) (my-reverse-interleave (range 10) 5))))
+
 (run-tests)
 
 
