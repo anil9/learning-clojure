@@ -32,13 +32,18 @@
 
 (defn all-possible-sums [elements]
     ;(println (map (fn [x] (* testvar x)) abundant-numbers))))
-    (map-indexed (fn [idx val] (map (fn [x] (* val )) (drop (inc idx) elements))) elements))
+    (set (flatten (map-indexed (fn [idx val] (map (fn [x] (+ val x)) (drop (inc idx) elements))) elements))))
 
 ;(println (map ((fn [x y] (* y x)) testvar) extract-abundant-numbers))
+
+(deftest test-possible-sums
+  (is (= '(3 4 5) (sort (all-possible-sums '(1 2 3))))))
 
 
 ;felet ligger i extract-abundant-numbers. Kan ej skapa en lista av tal av den
 
-(println (count (distinct(flatten(all-possible-sums (extract-abundant-numbers))))))
+(def sums (all-possible-sums (extract-abundant-numbers)))
+(println (reduce +' (remove #(contains?  sums %) (range 12 28124))))
+
 
 (println "test")
