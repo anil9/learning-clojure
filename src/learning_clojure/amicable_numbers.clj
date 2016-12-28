@@ -1,9 +1,11 @@
-(ns learning-clojure.amicable-numbers (:use clojure.test))
+(ns learning-clojure.amicable-numbers
+  (:use clojure.test))
 
 
 ;; finds all divisors of x
 (defn proper-divisors [x]
-  (filter #(= (mod x %) 0) (range 1 x)))
+  (->> (range 1 x)
+    (filter #(= (mod x %) 0))))
 
 (deftest test-divisors
   (is (= '(1 2 4 71 142) (proper-divisors 284)))
@@ -19,7 +21,7 @@
 ;; If x is an amicable pair (x, p2) return p2, else return false
 (defn amicable-pair? [x]
   (let [a1 (sum-divisors x) a2 (sum-divisors a1)]
-    (if (and (not (= x a1))(= a2 x))
+    (if (and (not (= x a1)) (= a2 x))
       a1
       false)))
 
@@ -30,12 +32,12 @@
 
 ;; takes a number x. If its an amicable pair (x, p2) conj value-sum with {p2 x+p2}
 (defn conj-amicable-numbers-map [x value-sum]
-      (if-not (contains? value-sum x)
-        (let [amicable (amicable-pair? x)]
-          (if-not (false? amicable)
-            (conj value-sum {amicable (+ x amicable)})
-            value-sum))
+  (if-not (contains? value-sum x)
+    (let [amicable (amicable-pair? x)]
+      (if-not (false? amicable)
+        (conj value-sum {amicable (+ x amicable)})
         value-sum))
+    value-sum))
 
 (deftest test-build-map
   (is (= {284 504} (conj-amicable-numbers-map 220 {})))
@@ -57,6 +59,12 @@
 
 ;; prints the result
 (println (reduce + (map last
-                     (map filter-high-amicable
-                          (rec-build-map 1 {} (- 10000 1))))))
+                        (map filter-high-amicable
+                             (rec-build-map 1 {} (- 10000 1))))))
+(->> (rec-build-map 1 {} (- 10000 1))
+     (map filter-high-amicable)
+     (map last)
+     (reduce +)
+     (println))
+
 (run-tests)
