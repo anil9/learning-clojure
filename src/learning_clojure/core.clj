@@ -178,6 +178,16 @@
 ;  (is (= true? ((flip-param >) 7 8)))
 ;  (is (= 3 ((flip-param nth) [1 2 3 4 5]))))
 
+(defn split-seq [at coll]
+  (loop [idx 0 first-part [] second-part coll]
+    (if (= idx at)
+      [first-part second-part]
+      (recur (inc idx) (conj first-part (first second-part)) (rest second-part)))))
+
+(deftest test-split-seq
+  (is (= [[1 2 3] [4 5 6]] (split-seq 3 [1 2 3 4 5 6])))
+  (is (= [[[1 2] [3 4]] [[5 6]]] (split-seq 2 [[1 2] [3 4] [5 6]]))))
+
 (run-tests)
 
 
