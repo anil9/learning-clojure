@@ -93,6 +93,16 @@
   (is (= 22 (maximum 1 3 5 7 11 13 17 21 22)))
   (is (= 1 (maximum -1 0 0 0 0 0 1 0 0 0 0 -2))))
 
+;; interleaves the seqs (a b c) (x y z) = (a x b y c z)
+(defn my-interleave [x y]
+  (loop [a x b y result []]
+    (if (and (seq a) (seq b))
+      (recur (rest a) (rest b) (conj result (first a) (first b)))
+      result)))
+
+(deftest test-interleave
+  (is (= '(1 4 2 5 3 6) (my-interleave '(1 2 3) '(4 5 6)))))
+
 (run-tests)
 
 
