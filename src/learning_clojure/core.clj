@@ -108,8 +108,21 @@
   (drop-last (mapcat #(list % element) coll)))
 
 (deftest test-interpose
-  (is (= [1 77 2 77 3] (my-interpose  77 [1 2 3])))
+  (is (= [1 77 2 77 3] (my-interpose 77 [1 2 3])))
   (is (= [1 "hej" 2]) (my-interpose "hej" [1 2])))
+
+;; drops every nth element
+(defn drop-every-nth [coll n]
+  (keep-indexed (fn [idx elem]
+                  (let [counted-idx (+ idx 1)]
+                    (if (or (< counted-idx n) (not= 0 (mod counted-idx n)))
+                      elem)))
+                coll))
+
+(deftest test-drop-every-nth
+  (is (= [1 3 5] (drop-every-nth [1 2 3 4 5] 2)))
+  (is (= [1 3 5] (drop-every-nth [1 2 3 4 5 6] 2)))
+  (is (= [1 2 4 5 7 8] (drop-every-nth (range 1 10) 3))))
 
 
 (run-tests)
