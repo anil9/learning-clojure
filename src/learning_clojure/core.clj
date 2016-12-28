@@ -59,14 +59,18 @@
   (is (="YOLO" (compress "YYYOOOLLLLOOOOOOOOOO")))
   (is (="test" (compress "test"))))
 
-;; Duplicate a sequence
-(defn duplicate [x]
-  (mapcat #(repeat 2 %) x))
+;; Replicates a sequence
+(defn my-replicate [coll n]
+  (mapcat #(repeat n %) coll))
+
+(defn duplicate [coll]
+  (my-replicate coll 2))
 
 (deftest test-duplicate
   (is (= '(1 1 2 2 3 3) (duplicate '(1 2 3))))
   (is (= '([1 2] [1 2] [3 4] [3 4]) (duplicate '([1 2] [3 4])))))
-
+(deftest test-replicate
+  (is (= '(1 1 1 2 2 2 3 3 3) (my-replicate '(1 2 3) 3))))
 
 (run-tests)
 
