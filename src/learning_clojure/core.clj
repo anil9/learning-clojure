@@ -103,6 +103,15 @@
 (deftest test-interleave
   (is (= '(1 4 2 5 3 6) (my-interleave '(1 2 3) '(4 5 6)))))
 
+;; interposes the seq: x (a b c) = (a x b x c)
+(defn my-interpose [element coll]
+  (drop-last (mapcat #(list % element) coll)))
+
+(deftest test-interpose
+  (is (= [1 77 2 77 3] (my-interpose  77 [1 2 3])))
+  (is (= [1 "hej" 2]) (my-interpose "hej" [1 2])))
+
+
 (run-tests)
 
 
