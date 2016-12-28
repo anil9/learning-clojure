@@ -124,6 +124,15 @@
   (is (= [1 3 5] (drop-every-nth [1 2 3 4 5 6] 2)))
   (is (= [1 2 4 5 7 8] (drop-every-nth (range 1 10) 3))))
 
+;; calculates factorial
+(defn fact [x]
+  (reduce *' (range 1 (+ x 1))))
+
+(deftest test-fact
+  (is (= 1 (fact 1)))
+  (is (= 6 (fact 3)))
+  (is (= 120 (fact 5)))
+  (is (= 40320 (fact 8))))
 
 (run-tests)
 
