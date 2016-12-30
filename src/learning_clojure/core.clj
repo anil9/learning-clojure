@@ -188,6 +188,21 @@
   (is (= [[1 2 3] [4 5 6]] (split-seq 3 [1 2 3 4 5 6])))
   (is (= [[[1 2] [3 4]] [[5 6]]] (split-seq 2 [[1 2] [3 4] [5 6]]))))
 
+;; calculates GCD of two integers
+(defn gcd [x y]
+  (cond
+    (or (= 0 x) (= 0 y)) (max x y)
+    (> x y) (recur (mod x y) y)
+    (< x y) (recur x (mod y x))
+    :else x))
+
+(deftest test-gcd
+  (is (= 12 (gcd 12 12)))
+  (is (= 5 (gcd 15 20)))
+  (is (= 1 (gcd 1 5)))
+  (is (= 10 (gcd 10 100)))
+  (is (= 1 (gcd 22 131))))
+
 (run-tests)
 
 
