@@ -203,6 +203,24 @@
   (is (= 10 (gcd 10 100)))
   (is (= 1 (gcd 22 131))))
 
+
+;;calculation for pascals triangle given the row (n) and the column (r)
+(defn pascal-calc [n r]
+  (quot (fact n) (* (fact r) (fact (- n r)))))
+
+;; returns the row n according to pascal's triangle
+(defn pascal [n]
+  (map-indexed (fn [idx elem] (pascal-calc n idx)) (range (inc n))))
+
+(deftest test-pascal
+  (is (= '(1) (pascal 0)))
+  (is (= '(1 1) (pascal 1)))
+  (is (= '(1 3 3 1) (pascal 3))))
+
+;; printing pascals triangle to STDOUT
+(defn pascal-triangle [n]
+  (dorun (map #(apply println (pascal %)) (range n))))
+
 (run-tests)
 
 
