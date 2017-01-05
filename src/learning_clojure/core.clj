@@ -101,7 +101,8 @@
       result)))
 
 (deftest test-interleave
-  (is (= '(1 4 2 5 3 6) (my-interleave '(1 2 3) '(4 5 6)))))
+  (is (= '(1 4 2 5 3 6) (my-interleave '(1 2 3) '(4 5 6))))
+  (is (= "apbqcrdset" (apply str (my-interleave "abcde" "pqrst")))))
 
 ;; interposes the seq: x (a b c) = (a x b x c)
 (defn my-interpose [element coll]
