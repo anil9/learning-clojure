@@ -1,20 +1,8 @@
-(ns learning-clojure.amicable-numbers
-  (:use clojure.test))
+(ns learning-clojure.amicable-numbers)
+(require '[clojure.test :as test :refer :all]
+         '[learning-clojure.core :refer [proper-divisors]])
 
-
-;; finds all divisors of x
-(defn proper-divisors [x]
-  (->> (range 1 x)
-    (filter #(= (mod x %) 0))))
-
-(deftest test-divisors
-  (is (= '(1 2 4 71 142) (proper-divisors 284)))
-  (is (= '(1 2 4 5 10 11 20 22 44 55 110) (proper-divisors 220)))
-  (is (= '(1) (proper-divisors 7)))
-  (is (= '(1) (proper-divisors 13)))
-  (is (= '(1) (proper-divisors 31))))
-
-;; sums all divisors
+;; sums all divisors of x
 (defn sum-divisors [x]
   (reduce + (proper-divisors x)))
 
@@ -57,11 +45,12 @@
     [k (- v k)]
     [k v]))
 
-;; prints the result
+;; prints the result (euler #21)
 (println (reduce + (map last
                         (map filter-high-amicable
                              (rec-build-map 1 {} (- 10000 1))))))
 
+;; prints the result written in another way :)
 (->> (rec-build-map 1 {} (- 10000 1))
      (map filter-high-amicable)
      (map last)
