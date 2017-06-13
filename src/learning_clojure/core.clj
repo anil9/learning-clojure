@@ -144,60 +144,11 @@
   (fn [left right]
     (func right left)))
 
-;; Cannot get tests to work.. It works in REPL.
-;(deftest test-flip-param
-;  (is (= [1 2 3] ((flip-param take) [1 2 3 4 5] 3)))
-;  (is (= true? ((flip-param >) 7 8)))
-;  (is (= 3 ((flip-param nth) [1 2 3 4 5]))))
+(deftest test-flip-param
+ (is (= [1 2 3] ((flip-param take) [1 2 3 4 5] 3)))
+ (is (= true? ((flip-param >) 7 8)))
+ (is (= 3 ((flip-param nth) [1 2 3 4 5]))))
 
 
 
 (run-tests)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
