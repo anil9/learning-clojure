@@ -47,3 +47,23 @@
     (is (= n (f)))
     (is (= n (f 123)))
     (is (= n (apply f 123 (range))))))
+
+(defn is-only-even?
+  ([] false)
+  ([& x] (= (count x) (count (filter even? x)))))
+
+(deftest is-only-even-test
+  (is (= true (is-only-even? 2 4 6)))
+  (is (= false (is-only-even? 1 4 6)))
+  (is (= false (is-only-even? 1 3 5)))
+  (is (= true (is-only-even? 2))))
+
+(defn opposite [f]
+  (fn [& args] (not (apply f args))))
+
+(deftest opposite-test
+(is (= true ((opposite is-only-even?) 3 4 3)))
+(is (= true ((opposite is-only-even?) 3)))
+(is (= true ((opposite is-only-even?))))
+(is (= false ((opposite is-only-even?) 2)))
+(is (= false ((opposite is-only-even?) 2 4 6))))
