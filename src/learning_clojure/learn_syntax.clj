@@ -1,5 +1,6 @@
-(ns learning-clojure.learn-syntax)
-(require '[clojure.test :as test :refer :all])
+(ns learning-clojure.learn-syntax
+  (require [clojure.test :as test :refer :all])
+  (:import java.net.URL))
 (+ 7654 1234)
 
 (/ (+ 7 (* 3 4) 5) 10)
@@ -62,8 +63,32 @@
   (fn [& args] (not (apply f args))))
 
 (deftest opposite-test
-(is (= true ((opposite is-only-even?) 3 4 3)))
-(is (= true ((opposite is-only-even?) 3)))
-(is (= true ((opposite is-only-even?))))
-(is (= false ((opposite is-only-even?) 2)))
-(is (= false ((opposite is-only-even?) 2 4 6))))
+  (is (= true ((opposite is-only-even?) 3 4 3)))
+  (is (= true ((opposite is-only-even?) 3)))
+  (is (= true ((opposite is-only-even?))))
+  (is (= false ((opposite is-only-even?) 2)))
+  (is (= false ((opposite is-only-even?) 2 4 6))))
+
+(defn http-get-java [url]
+  (slurp (.openStream (URL. url))))
+
+(deftest http-get-java-test
+  (is (.contains (http-get-java "https://www.w3.org") "html"))
+  (is (.contains (http-get-java "https://github.com") "login")))
+
+
+(defn http-get [url]
+  (slurp url))
+
+(deftest http-get-test
+  (is (.contains (http-get "https://www.w3.org") "html"))
+  (is (.contains (http-get "https://github.com") "login")))
+
+(defn one-less-arg [f x]
+  (fn [& args] (apply f x args)))
+
+(deftest one-less-arg-test
+  (is (= true ((one-less-arg is-only-even? 2) 4))) 
+  (is (= false ((one-less-arg is-only-even? 2) 3)))
+  (is (= false ((one-less-arg is-only-even? 3) 2)))
+  (is (= true ((one-less-arg is-only-even? 2) 2 4 6 8))))
