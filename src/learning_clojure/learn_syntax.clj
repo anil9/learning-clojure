@@ -1,11 +1,12 @@
-(ns learning-clojure.learn-syntax
-  (require [clojure.test :as test :refer :all])
-  (:import java.net.URL))
+(ns learning-clojure.learn-syntax)
+(require '[clojure.test :as test :refer :all])
+(import java.net.URL)
+
 (+ 7654 1234)
 
 (/ (+ 7 (* 3 4) 5) 10)
 
-(defn greet [] 
+(defn greet []
   (println "Hello1"))
 
 (def greet
