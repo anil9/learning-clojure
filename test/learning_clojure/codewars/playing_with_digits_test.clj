@@ -1,9 +1,9 @@
-(ns learning-clojure.playing-with-digits-test
+(ns learning-clojure.codewars.playing-with-digits-test
   (:require [clojure.test :refer :all])
-  (:require [learning-clojure.playing-with-digits :refer [dig-pow]])
-  (:require [learning-clojure.playing-with-digits :refer [digits]])
-  (:require [learning-clojure.playing-with-digits :refer [inc-pow]])
-  (:require [learning-clojure.playing-with-digits :refer [sum-dig-pow]])
+  (:require [learning-clojure.codewars.playing-with-digits :refer [dig-pow]])
+  (:require [learning-clojure.codewars.playing-with-digits :refer [digits]])
+  (:require [learning-clojure.codewars.playing-with-digits :refer [inc-pow]])
+  (:require [learning-clojure.codewars.playing-with-digits :refer [sum-dig-pow]])
   )
 
 (deftest dig-pow-test

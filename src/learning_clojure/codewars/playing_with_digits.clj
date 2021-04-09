@@ -1,4 +1,4 @@
-(ns learning-clojure.playing-with-digits)
+(ns learning-clojure.codewars.playing-with-digits)
 
 (defn digits [n]
   (loop [n n

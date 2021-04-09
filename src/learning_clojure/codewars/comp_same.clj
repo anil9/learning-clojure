@@ -1,4 +1,4 @@
-(ns learning-clojure.comp-same)
+(ns learning-clojure.codewars.comp-same)
 
 (defn square [x]
   (* x x))

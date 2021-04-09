@@ -1,6 +1,6 @@
-(ns learning-clojure.comp-same-test
+(ns learning-clojure.codewars.comp-same-test
   (:require [clojure.test :refer :all])
-  (:require [learning-clojure.comp-same :refer [compSame]]))
+  (:require [learning-clojure.codewars.comp-same :refer [compSame]]))
 
 (deftest compSame-test
   (is (= true (compSame [19 11] [121 361])))

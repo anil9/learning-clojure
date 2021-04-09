@@ -1,8 +1,8 @@
-(ns learning-clojure.encrypt-this-test
+(ns learning-clojure.codewars.encrypt-this-test
   (:require [clojure.test :refer :all])
-  (:require [learning-clojure.encrypt-this :refer [encrypt-this]])
-  (:require [learning-clojure.encrypt-this :refer [replace-first-char-with-ascii]])
-  (:require [learning-clojure.encrypt-this :refer [second-letter-switched-with-last]])
+  (:require [learning-clojure.codewars.encrypt-this :refer [encrypt-this]])
+  (:require [learning-clojure.codewars.encrypt-this :refer [replace-first-char-with-ascii]])
+  (:require [learning-clojure.codewars.encrypt-this :refer [second-letter-switched-with-last]])
 
   )
 

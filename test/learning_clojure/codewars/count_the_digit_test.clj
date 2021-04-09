@@ -1,6 +1,6 @@
-(ns learning-clojure.count-the-digit-test
+(ns learning-clojure.codewars.count-the-digit-test
   (:require [clojure.test :refer :all])
-  (:require [learning-clojure.count-the-digit :refer [nb-dig]]))
+  (:require [learning-clojure.codewars.count-the-digit :refer [nb-dig]]))
 
 (deftest nb-dig-test
   (is (= 4700 (nb-dig 5750 0)))

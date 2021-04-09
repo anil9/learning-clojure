@@ -1,6 +1,6 @@
-(ns learning-clojure.odd-or-even-test
+(ns learning-clojure.codewars.odd-or-even-test
   (:require [clojure.test :refer :all])
-  (:require [learning-clojure.odd-or-even :refer [odd-or-even]]))
+  (:require [learning-clojure.codewars.odd-or-even :refer [odd-or-even]]))
 
 (deftest odd-or-even-test
   (is (= "even" (odd-or-even [0])))

@@ -1,4 +1,4 @@
-(ns learning-clojure.encrypt
+(ns learning-clojure.codewars.encrypt
   (:require
     [clojure.string :as str]))
 

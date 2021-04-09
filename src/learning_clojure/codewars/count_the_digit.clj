@@ -1,4 +1,4 @@
-(ns learning-clojure.count-the-digit)
+(ns learning-clojure.codewars.count-the-digit)
 
 (defn square [x]
   (* x x))

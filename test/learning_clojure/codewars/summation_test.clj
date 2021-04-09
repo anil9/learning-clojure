@@ -1,6 +1,6 @@
-(ns learning-clojure.summation-test
+(ns learning-clojure.codewars.summation-test
   (:require [clojure.test :refer :all])
-  (:require [learning-clojure.summation :refer [summation]]))
+  (:require [learning-clojure.codewars.summation :refer [summation]]))
 
 (deftest summation-test
   (is (= 3 (summation 2)))

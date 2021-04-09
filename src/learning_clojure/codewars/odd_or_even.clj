@@ -1,4 +1,4 @@
-(ns learning-clojure.odd-or-even)
+(ns learning-clojure.codewars.odd-or-even)
 
 (defn odd-or-even [xs]
   (let [sum (reduce + xs)]

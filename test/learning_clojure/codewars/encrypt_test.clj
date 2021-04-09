@@ -1,6 +1,6 @@
-(ns learning-clojure.encrypt-test
+(ns learning-clojure.codewars.encrypt-test
   (:require [clojure.test :refer :all])
-  (:require [learning-clojure.encrypt :refer :all]))
+  (:require [learning-clojure.codewars.encrypt :refer :all]))
 
 (deftest tests-seconds
   (testing "seconds tests"

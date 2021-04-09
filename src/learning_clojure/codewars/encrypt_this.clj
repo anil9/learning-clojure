@@ -1,4 +1,4 @@
-(ns learning-clojure.encrypt-this
+(ns learning-clojure.codewars.encrypt-this
   (:require [clojure.string :as str]))
 
 (defn replace-first-char-with-ascii [x]
