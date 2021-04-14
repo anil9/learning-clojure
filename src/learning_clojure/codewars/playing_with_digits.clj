@@ -119,7 +119,7 @@
 (defn lots-pows [need-precision b]
   (cond
     (true? need-precision)
-    (->> (range 2 30)
+    (->> (range 2 40)
          (map (fn [e] (bigdec (.pow (bigdec b) e))))
          (filter is-valid-with-precision?)
          (filter some?))
@@ -136,23 +136,23 @@
       (bigint (last
                 (take n
                       (sort
-                        (->> (range 2 340)
+                        (->> (range 2 150)
                              (mapcat (partial lots-pows precision-mode))
                              (distinct))))))
       (bigint (last
                 (take n
                       (sort
-                        (->> (range 2 350)
+                        (->> (range 2 150)
                              (mapcat (partial lots-pows precision-mode))
                              (distinct)))))))))
 
 
-(defn power-sum-dig-term [n]
-  (take n
-        (sort
-          (->> (range 2 300)
-               (mapcat (partial lots-pows true))
-               (distinct)))))
+;(defn power-sum-dig-term [n]
+;  (take n
+;        (sort
+;          (->> (range 2 300)
+;               (mapcat (partial lots-pows true))
+;               (distinct)))))
 
 
 (defn find-faulty-num [max]
