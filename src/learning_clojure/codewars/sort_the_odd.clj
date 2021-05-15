@@ -13,5 +13,5 @@
 (defn sort-array [xs]
   (prn xs)
   (let [arr (into [] xs)
-        replacement-map (into {} (map vector (odd-idx xs) (sorted-odd xs)))]
-    (reduce-kv (fn [r k v] (assoc r k v)) arr replacement-map)))
+        replacements (zipmap (odd-idx xs) (sorted-odd xs))]
+    (reduce-kv (fn [r k v] (assoc r k v)) arr replacements)))
