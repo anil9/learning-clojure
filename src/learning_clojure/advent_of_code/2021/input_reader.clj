@@ -3,10 +3,13 @@
 
 (def standard-path "/home/andreas/temp/advent-of-code/")
 
-(defn get-line-separated-input [x]
-  (str/split-lines (slurp (str standard-path x))))
+(defn get-line-separated-input [file-path]
+  (str/split-lines (slurp (str standard-path file-path))))
 
-(defn get-int-input [x]
-  (->> (get-line-separated-input x)
+(defn get-int-input [file-path]
+  (->> (get-line-separated-input file-path)
        (map #(Integer/parseInt %))))
 
+(defn split-line-input-at [file-path regex]
+  (->> (get-line-separated-input file-path)
+       (map #(str/split % (re-pattern regex)))))
