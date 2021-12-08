@@ -14,8 +14,7 @@
               (map #(if (< (first %) (second %)) "increased" "decreased"))
               (filter #(= "increased" %)))))
 (defn part1 []
-  (prn
-    (count-increases-between-elements (get-int-input part1-file))))
+    (count-increases-between-elements (get-int-input part1-file)))
 
 (defn count-3-sliding-window-increase-sum [coll]
   (count-increases-between-elements
@@ -23,5 +22,6 @@
          (map #(apply + %)))))
 
 (defn part2 []
-  (prn
-    (count-3-sliding-window-increase-sum (get-int-input part2-file))))
+    (count-3-sliding-window-increase-sum (get-int-input part2-file)))
+
+
