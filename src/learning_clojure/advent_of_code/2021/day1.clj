@@ -9,13 +9,15 @@
   (->> (str/split-lines (slurp x))
        (map #(Integer/parseInt %))))
 
+;; Part 1
 (defn count-increases-between-elements [coll]
   (count (->> (partition 2 1 coll)
-              (map #(if (< (first %) (second %)) "increased" "decreased"))
-              (filter #(= "increased" %)))))
+              (map #(< (first %) (second %)))
+              (filter true?))))
 (defn part1 []
     (count-increases-between-elements (get-int-input part1-file)))
 
+;; Part 2
 (defn count-3-sliding-window-increase-sum [coll]
   (count-increases-between-elements
     (->> (partition 3 1 coll)
