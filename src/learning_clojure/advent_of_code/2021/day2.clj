@@ -19,10 +19,11 @@
     (Integer/parseInt value)
     (unchecked-negate-int (Integer/parseInt value))))
 
+(def vertical-command #{"up" "down"})
 
 (defn vertical-position [coll]
   (apply + (->> coll
-                (filter #(or (= "up" (first %)) (= "down" (first %))))
+                (filter #(contains? vertical-command (first %)))
                 (map get-vertical-value))))
 
 (def part1-data
@@ -32,3 +33,31 @@
   (let [vertical (vertical-position part1-data)
         horizontal (horizontal-position part1-data)]
     (* vertical horizontal)))
+;; part 2
+
+(def part2-data
+  (input-reader/split-line-input-at part2-file " "))
+
+(def aim-command #{"up" "down"})
+
+(defn get-aim [coll]
+  (apply + (->> coll
+                (filter #(contains? aim-command (first %)))
+                (map get-vertical-value))))
+
+(defn calculate-depth [coll idx itm]
+    (if (contains? aim-command (first itm))
+      0
+      (* (get-aim (take idx coll))
+         (Integer/parseInt (second itm)))))
+
+(defn get-total-depth [coll]
+  (apply + (map-indexed #(calculate-depth coll %1 %2) coll)))
+
+
+(defn part2 []
+  (* (horizontal-position part2-data)
+    (get-total-depth part2-data)))
+
+(prn
+  (part2))
