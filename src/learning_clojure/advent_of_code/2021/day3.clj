@@ -50,4 +50,44 @@
         epsilon-dec (bin-str-to-dec (invert-bin gamma))]
     (* gamma-dec epsilon-dec)))
 
-(prn (part1))
+;(prn (part1))
+; Part 2
+(def part2-data
+  (input-reader/get-line-separated-input part2-file))
+
+(defn most-frequent-nth-bit-with-default [coll idx default]
+  (let [numbers-to-compare (->> coll
+                                (map #(nth % idx))
+                                (map #(Character/digit % number-base)))]
+    (cond
+      (> (sum numbers-to-compare) (half (count numbers-to-compare))) "1"
+      (< (sum numbers-to-compare) (half (count numbers-to-compare))) "0"
+      :else default)))
+
+(defn oxygen-rating [input]
+  (bin-str-to-dec
+    (loop [coll input
+           idx 0]
+      (if (= 1 (count coll))
+        (first coll)
+        (let [wanted (most-frequent-nth-bit-with-default coll idx "1")]
+          (recur (->> coll
+                      (filter #(= wanted (str (nth % idx)))))
+                 (inc idx)))))))
+
+(defn co2-rating [input]
+  (bin-str-to-dec
+    (loop [coll input
+           idx 0]
+      (if (= 1 (count coll))
+        (first coll)
+        (let [wanted (invert-bin (most-frequent-nth-bit-with-default coll idx "1"))]
+          (recur (->> coll
+                      (filter #(= wanted (str (nth % idx)))))
+                 (inc idx)))))))
+
+(defn part2 []
+  (* (oxygen-rating part2-data)
+     (co2-rating part2-data)))
+
+;(prn (part2))
