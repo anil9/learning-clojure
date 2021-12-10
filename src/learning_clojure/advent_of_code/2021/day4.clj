@@ -76,4 +76,22 @@
            (nth numbers-to-draw (dec num-drawn)))
         (recur (inc num-drawn))))))
 
-(prn (part1 boards numbers-to-draw))
+;(prn (part1 boards numbers-to-draw))
+
+
+(defn part2 [boards numbers-to-draw]
+  (loop [num-drawn 1
+         still-loosing-boards boards]
+    (let [drawn-numbers (into #{} (take num-drawn numbers-to-draw))
+          loosing-boards (if (= 1 (count still-loosing-boards))
+                           still-loosing-boards
+                           (->> still-loosing-boards
+                                (remove #(bingo-board? % drawn-numbers))))
+          winner-board (first (->> loosing-boards
+                                   (filter #(bingo-board? % drawn-numbers))))]
+      (if (and (<= 0 (count loosing-boards)) (not (nil? winner-board)))
+        (* (sum-unmarked (first loosing-boards) drawn-numbers)
+           (nth numbers-to-draw (dec num-drawn)))
+        (recur (inc num-drawn) loosing-boards)))))
+
+(prn (part2 boards numbers-to-draw))
