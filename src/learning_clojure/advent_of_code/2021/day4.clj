@@ -94,4 +94,6 @@
            (nth numbers-to-draw (dec num-drawn)))
         (recur (inc num-drawn) loosing-boards)))))
 
-(prn (part2 boards numbers-to-draw))
+(comment
+  (part2 boards numbers-to-draw))
+;(prn (part2 boards numbers-to-draw))
