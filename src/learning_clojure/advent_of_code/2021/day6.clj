@@ -15,7 +15,7 @@
        (map #(Long/parseLong %))))
 
 (def part2-data
-  (->> (input-reader/split-line-input-at part1-example-file #",")
+  (->> (input-reader/split-line-input-at part2-file #",")
        (flatten)
        (map #(Long/parseLong %))))
 
@@ -41,14 +41,35 @@
          fishes data]
     (if (= i day)
       (count fishes)
-      (do
-        (prn "day=" i " fishes=" (count fishes))
-        (recur (inc i) (process-day fishes))))))
+      (recur (inc i) (process-day fishes)))))
 
 (defn part1 []
   (fishes-at-day 80 part1-data))
+
+; part 2 below
+
+(def max-reprod-days 8)
+
+(defn process-day-speedy [fishes]
+  (let [new-fish (get fishes 0 0)
+        fishes-updated (merge
+                              (hash-map 8 new-fish)
+                              (into {} (->> (range 1 (inc max-reprod-days))
+                                            (map #(hash-map (dec %) (get fishes % 0))))))]
+      (update fishes-updated 6 #(+ new-fish %))))
+
+
+(defn fishes-at-day-speedy [day data]
+  (loop [i 0
+         fishes (frequencies data)]
+    (if (= i day)
+      (apply + (vals fishes))
+      (do
+        (recur (inc i) (process-day-speedy fishes))))))
+
+
 (defn part2 []
-  (fishes-at-day 256 part2-data))
+  (fishes-at-day-speedy 256 part2-data))
 
 (comment
   (part1)
