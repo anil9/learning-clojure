@@ -16,3 +16,6 @@
 (defn split-line-input-at [file-path regex]
   (->> (get-line-separated-input file-path)
        (map #(str/split % (re-pattern regex)))))
+
+(defn split-input-at [file-path regex]
+  (str/split (raw-input file-path) (re-pattern regex)))
