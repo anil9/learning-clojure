@@ -19,7 +19,7 @@
        (map #(input-at-line %))))
 
 (def part2-data
-  (->> (input-reader/get-line-separated-input part2-example-file)
+  (->> (input-reader/get-line-separated-input part2-file)
        (map #(input-at-line %))))
 
 (def easy-numbers-length {:1 2
@@ -61,43 +61,48 @@
                               :6 6
                               :9 6}))
 
+;9 must have all chars in 4 + "roof" char in 7 + and one more unknown char
 (defn deduce-nine [easy-numbers signal-patterns]
   (let [roof-of-seven (sets/difference (set (:7 easy-numbers)) (set (:1 easy-numbers)))]
     (first (->> signal-patterns
                 (filter #(= (count %) (:6 numbers-length)))
                 (filter (fn [code] (every? #(contains? (set code) %) (sets/union (set (:4 easy-numbers)) roof-of-seven))))))))
 
+; Remove on of the chars of 1 from 9 to get 5
 (defn deduce-five [easy-numbers nine signal-patterns]
   (first (->> signal-patterns
               (filter #(= (count %) (:5 numbers-length)))
-              (filter (fn [code] (or
-                                   (every? #(contains? (set code) %) (sets/difference (set nine) (hash-set (first (:1 easy-numbers)))))
-                                   (every? #(contains? (set code) %) (sets/difference (set nine) (hash-set (second (:1 easy-numbers)))))))))))
+              (filter #(or
+                         (= (set %) (sets/difference (set nine) (hash-set (first (:1 easy-numbers)))))
+                         (= (set %) (sets/difference (set nine) (hash-set (second (:1 easy-numbers))))))))))
 
-
+; 4 - 1 gives two different chars. Remove one of them from 9 to get 3.
 (defn deduce-three [easy-numbers nine signal-patterns]
-  (first (->> signal-patterns
-              (filter #(= (count %) (:3 numbers-length)))
-              (filter (fn [code] (every? #(contains? (set code) %) (sets/difference (set nine) (sets/difference (set nine) (hash-set (:4 easy-numbers))))))))))
+  (let [diff (sets/difference (set (:4 easy-numbers)) (set (:1 easy-numbers)))]
+    (first (->> signal-patterns
+                (filter #(= (count %) (:3 numbers-length)))
+                (filter #(or
+                           (= (set %) (sets/difference (set nine) (hash-set (first diff))))
+                           (= (set %) (sets/difference (set nine) (hash-set (second diff))))))))))
 
-
+; The only one left with this many chars
 (defn deduce-two [signal-patterns]
   (first (->> signal-patterns
               (filter #(= (count %) (:2 numbers-length))))))
 
-
+;  if we remove the difference char between 9 and 5 from 8 then we get 6
 (defn deduce-six [easy-numbers diff-nine-five signal-patterns]
   (first (->> signal-patterns
               (filter #(= (count %) (:6 numbers-length)))
-              (filter (fn [code] (every? #(contains? (set code) %) (sets/difference (set (:8 easy-numbers)) diff-nine-five)))))))
+              (filter #(= (set %) (sets/difference (set (:8 easy-numbers)) diff-nine-five))))))
 
 
 (defn get-number [coded all-numbers-decoded]
-  (prn "coded" coded)
-  (prn "all-numbers-decoded" all-numbers-decoded)
+  ;(prn "coded" coded)
+  ;(prn "all-numbers-decoded" all-numbers-decoded)
   (let [found-number (first (->> all-numbers-decoded
                                  (filter #(= (set (to-chars coded)) (second %)))))]
-    (prn "found-number" found-number)
+    ;(prn "found-number" found-number)
     (name (first found-number))))
 
 (defn map-function-on-map-vals [m f]
@@ -126,8 +131,8 @@
 
 
 (defn part2 []
-  (->> part2-data
-       (map #(decode-numbers %))))
+  (apply + (->> part2-data
+                (map #(decode-numbers %)))))
 
 
 (comment
