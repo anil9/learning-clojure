@@ -1,10 +1,10 @@
 (ns learning-clojure.codewars.readability-is-king-test
   (:require [clojure.test :refer :all])
   (:require [learning-clojure.codewars.readability-is-king
-              :refer [words-per-sentence count-syllables flesch-kincaid]]))
+              :refer [text->words count-syllables flesch-kincaid]]))
 
 (deftest words-per-sentence-test
-  (is (= 4 (count (words-per-sentence "The turtle is leaving.")))))
+  (is (= 4 (count (text->words "The turtle is leaving.")))))
 
 (deftest num-syllables-test
   (is (= 2 (count-syllables "leaving")))

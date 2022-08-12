@@ -1,28 +1,13 @@
 (ns learning-clojure.codewars.readability-is-king
   (:require [clojure.string :as s]))
 ;; https://www.codewars.com/kata/52b2cf1386b31630870005d4/train/clojure
-(def word-per-sentence-factor 0.39)
-(def syllables-per-word-factor 11.8)
 (def ignore-chars #"[-—'’()…]")
-(def vowels #{\a \e \i \o \u})
 
-(defn words-per-sentence [sentence]
-  (s/split sentence #"\s+"))
-
-(defn is-vowel? [letter] (contains? vowels letter))
+(defn text->words [text]
+  (s/split text #"\s+"))
 
 (defn count-syllables [word]
-  (loop [current word
-         prev-letter-vowel? false
-         syllables 0]
-    (if (empty? current)
-      syllables
-      (let [char-is-vowel (is-vowel? (first current))]
-        (if (not char-is-vowel)
-          (recur (rest current) false syllables)
-          (if prev-letter-vowel?
-            (recur (rest current) true syllables)
-            (recur (rest current) true (inc syllables))))))))
+  (count (re-seq #"[aeiou]+" word)))
 
 (defn text->sentences [text]
   (map s/trim (s/split text #"[\.!?]")))
@@ -33,25 +18,24 @@
                     (s/replace ignore-chars "")
                     (s/trim))
         sentences (text->sentences cleaned)
-        avg-words-per-sentence (/ (->> sentences
-                                       (map words-per-sentence)
-                                       (map count)
-                                       (reduce +))
+        words (text->words cleaned)
+        avg-words-per-sentence (/ (count words)
                                   (count sentences))
-        words (->> sentences
-                   (map words-per-sentence)
-                   (flatten))
-        avg-syllable-per-word (/ (->> words
-                                      (map count-syllables)
-                                      (reduce +))
+        num-syllables (->> words
+                           (map count-syllables)
+                           (reduce +))
+        avg-syllable-per-word (/ num-syllables
                                  (count words))]
     (with-precision 2 (+
-                       (* word-per-sentence-factor avg-words-per-sentence)
-                       (* syllables-per-word-factor avg-syllable-per-word)
+                       (* 0.39 avg-words-per-sentence)
+                       (* 11.8 avg-syllable-per-word)
                        -15.59))))
 
 (comment
   (flesch-kincaid "The turtle is leaving")
+  (count (re-seq #"[.!?]" "The turtle is leaving."))
+  (count (re-seq #"\W+" "The turtle is leaving."))
+  (s/split "To be or not to be. That is the question." #"[.!?] *")
   (flesch-kincaid "To be or not to be. That is the question.")
   (count-syllables "hi")
   (count-syllables "question"))
