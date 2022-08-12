@@ -38,3 +38,7 @@ pom.xml.asc
 .nfs*
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,clojure
+
+# clojure lsp
+.lsp
+.clj-kondo
