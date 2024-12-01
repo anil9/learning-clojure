@@ -8,9 +8,9 @@
 (def part2-example-file (str day "/example-input-part2"))
 (def part2-file (str day "/input-part2"))
 
-(def raw-input (input-reader/raw-input part1-file))
-(def input (input-reader/get-line-separated-input part1-file))
-(def numbers-to-draw
+(defn raw-input [] (input-reader/raw-input part1-file))
+(defn input [] (input-reader/get-line-separated-input part1-file))
+(defn numbers-to-draw []
   (->> (str/split (first input) #",")
        (map #(Integer/parseInt %))))
 
@@ -32,9 +32,9 @@
        (map vec)))
 
 
-(def boards
+(defn boards []
   (map vec
-       (->> (rest (str/split raw-input #"\n\n"))
+       (->> (rest (str/split (raw-input) #"\n\n"))
             (map #(str/split % #"\n"))
             (map into-row))))
 
@@ -95,5 +95,5 @@
         (recur (inc num-drawn) loosing-boards)))))
 
 (comment
-  (part2 boards numbers-to-draw))
+  (part2 (boards) numbers-to-draw))
 ;(prn (part2 boards numbers-to-draw))

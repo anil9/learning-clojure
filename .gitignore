@@ -42,3 +42,6 @@ pom.xml.asc
 # clojure lsp
 .lsp
 .clj-kondo
+
+# advent of code
+/resources/input
