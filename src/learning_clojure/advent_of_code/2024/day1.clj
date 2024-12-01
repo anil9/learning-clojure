@@ -28,11 +28,27 @@
                     (map #(Integer/parseInt %))))]
     (distance-sum l1 l2)))
 
+(defn solution-part2 []
+  (let [l1 (->> input
+                (map #(str/split % #"\s+"))
+                (map first)
+                (map #(Integer/parseInt %)))
+        freq-l2 (frequencies (->> input
+                              (map #(str/split % #"\s+"))
+                              (map second)
+                              (map #(Integer/parseInt %))))]
+    (->> l1
+         (map #(* % (get freq-l2 % 0)))
+         (reduce + 0))))
+
+
 
 (comment
   (->> input
               (map #(str/split % #"\s+"))
               (map first)
               (map #(Integer/parseInt %)))
-  (solution-part1))
+  (solution-part1)
+  (solution-part2))
+  
   
